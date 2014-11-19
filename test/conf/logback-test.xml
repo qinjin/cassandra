@@ -32,6 +32,9 @@
     <encoder>
       <pattern>%-5level [%thread] %date{ISO8601} %msg%n</pattern>
     </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>WARN</level>
+    </filter>
   </appender>
   
     <appender name="STDERR" target="System.err" class="ch.qos.logback.core.ConsoleAppender">
@@ -45,10 +48,10 @@
   
   <appender name="STDOUT" target="System.out" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%-5level %date{HH:mm:ss,SSS} %msg%n</pattern>
+      <pattern>%-5level %date{HH:mm:ss,SSS} %F:%L %msg%n</pattern>
     </encoder>
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>WARN</level>
+      <level>INFO</level>
     </filter>
   </appender>
         
