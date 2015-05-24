@@ -124,7 +124,8 @@ public class DatabaseDescriptor
             applyConfig(loadConfig());
         }
         catch (Exception e)
-        {
+        {	
+        	e.printStackTrace();
             JVMStabilityInspector.inspectThrowable(e);
             throw new ExceptionInInitializerError(e.getMessage() + "\nFatal configuration error; unable to start. See log for stacktrace.");
         }
