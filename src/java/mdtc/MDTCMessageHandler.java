@@ -13,7 +13,7 @@ import mdtc.api.transaction.data.NodeID;
 import mdtc.api.transaction.data.TItem;
 import mdtc.api.transaction.message.IMessage;
 import mdtc.api.transaction.message.TranEndPointMessage;
-import mdtc.utils.HTTPClientHelper;
+import mdtc.utils.ApacheHTTPClientTool;
 
 import org.apache.cassandra.service.StorageService;
 import org.slf4j.Logger;
@@ -82,7 +82,7 @@ public class MDTCMessageHandler implements HttpHandler {
 		for (TItem item : message.items) {
 			List<InetAddress> endPoints = StorageService.instance
 					.getNaturalEndpoints(message.keyspace,
-							message.columnFamily, item.getKey());
+							item.getTxnKey().columnFamily, item.getKey());
 			List<NodeID> endPointIDs = Lists.newArrayList();
 			for (InetAddress endPoint : endPoints) {
 				endPointIDs.add(new NodeID(item.getNodeID().id, endPoint
@@ -96,6 +96,6 @@ public class MDTCMessageHandler implements HttpHandler {
 		NodeID temp = message.sender;
 		message.sender = message.receiver;
 		message.receiver = temp;
-		HTTPClientHelper.getInstance().sendMessage(message);
+		ApacheHTTPClientTool.getInstance().sendMessage(message);
 	}
 }
