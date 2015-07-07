@@ -2876,7 +2876,13 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
      */
     public List<InetAddress> getNaturalEndpoints(String keyspaceName, String cf, String key)
     {
-        CFMetaData cfMetaData = Schema.instance.getKSMetaData(keyspaceName).cfMetaData().get(cf);
+    	Map<String, CFMetaData> allCFMetaData = Schema.instance.getKSMetaData(keyspaceName).cfMetaData();
+//    	for(String cfKey : allCFMetaData.keySet()){
+//    		System.out.println("Key "+cfKey + " metadata: "+allCFMetaData.get(cfKey).toString());
+//    	}
+        
+    	CFMetaData cfMetaData = allCFMetaData.get(cf);
+        
         return getNaturalEndpoints(keyspaceName, getPartitioner().getToken(cfMetaData.getKeyValidator().fromString(key)));
     }
 

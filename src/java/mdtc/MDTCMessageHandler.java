@@ -64,7 +64,7 @@ public class MDTCMessageHandler implements HttpHandler {
 
 	private void handleMessage(InputStream inputStream) throws Exception {
 		IMessage message = GsonHelper.instance().fromJson(inputStream);
-		logger.info("Handle {} message from {}", message.getMessageType(),
+		logger.debug("Handle {} message from {}", message.getMessageType(),
 				message.getSenderID());
 		switch (message.getMessageType()) {
 		case TranEndPoint:
@@ -77,8 +77,6 @@ public class MDTCMessageHandler implements HttpHandler {
 	}
 
 	private void onGetEndPoint(TranEndPointMessage message) {
-		logger.info("Handle {} message from {}", message.getMessageType(),
-				message.getSenderID());
 		for (TItem item : message.items) {
 			List<InetAddress> endPoints = StorageService.instance
 					.getNaturalEndpoints(message.keyspace,
