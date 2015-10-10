@@ -40,9 +40,9 @@ public class MDTCMessageHandler implements HttpHandler {
 				try {
 					handleMessage(inputStream);
 					exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-				} catch (Exception ex) {
+				} catch (Throwable ex) {
 					logger.error("Exception on handling MDTC messages: {}",
-							ex.getMessage());
+							ex);
 					ex.printStackTrace();
 					try {
 						exchange.sendResponseHeaders(
